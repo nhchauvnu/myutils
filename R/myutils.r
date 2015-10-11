@@ -13,7 +13,7 @@ naValueGraph <- function(data, percent=100) {
 	nr <- nrow(data)
 	nc <- ncol(data)
 	image(is.na(data), axes=FALSE, col=c('gray', 'black'))
-	axis(1, at=0:(nr-1)/(nr/100*percent), labels=rownames(data), las=1)
-	axis(2, at=0:(nc-1)/nc, labels=colnames(data), las=2)
+	axis(1, at=0:(nr-1)/(nr/100*percent), labels=rownames(data), las=2)
+	axis(2, at=0:(nc-1)/nc, labels=colnames(data), las=1)
 }
 
