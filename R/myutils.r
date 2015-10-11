@@ -9,11 +9,21 @@
 #' @examples
 #' naValueGraph(data=df, percent=50)
 
-naValueGraph <- function(data, percent=100) {
+naValueGraph <- function(data, percent=50, msg="NA values map of") {
+	dy = max(nchar(names(data)))
+	dx = max(nchar(rownames(data)))
 	nr <- nrow(data)
 	nc <- ncol(data)
-	image(is.na(data), axes=FALSE, col=c('gray', 'black'))
-	axis(1, at=0:(nr-1)/((nr-1)/100*percent), labels=rownames(data), las=2)
+	tmp <- seq(1, nr, by=100/percent)
+	if (tmp[length(tmp)] != nr)
+		tmp = c(tmp, nr)
+	lbl <- rownames(data)[tmp]
+	nr <- length(lbl)
+	par(mar=c(dx+1, dy/2, 4, 4))
+	image(is.na(data), axes=FALSE, col=c('gray', 'black'),
+		xlab="Observation")
+	axis(side=1, at=0:(nr-1)/(nr-1), labels=lbl, las=2)
 	axis(side=2, at=0:(nc-1)/(nc-1), labels=colnames(data), las=1)
+	title(paste0(msg, " '", deparse(substitute(data)), "'"))
 }
 
